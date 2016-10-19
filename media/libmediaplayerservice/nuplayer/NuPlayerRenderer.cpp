@@ -1750,6 +1750,10 @@ void NuPlayer::Renderer::onAudioTearDown(AudioTearDownReason reason) {
     if (mAudioTearingDown) {
         return;
     }
+    if (offloadingAudio() && mPaused) {
+        cancelAudioOffloadPauseTimeout();
+    }
+
     mAudioTearingDown = true;
 
     int64_t currentPositionUs;
